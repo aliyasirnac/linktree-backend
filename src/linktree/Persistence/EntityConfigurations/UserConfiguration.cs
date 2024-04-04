@@ -46,7 +46,7 @@ public class UserConfiguration : IEntityTypeConfiguration<User>
                 new()
                 {
                     Id = AdminId,
-                    Email = "narch@kodlama.io",
+                    Email = "aliyasirnac@gmail.com",
                     PasswordHash = passwordHash,
                     PasswordSalt = passwordSalt
                 };
