@@ -10,6 +10,4 @@ public class GetByIdAppResponse : IResponse
     public string ImageUrl { get; set; }
     public string PlayStoreUrl { get; set; }
     public string AppStoreUrl { get; set; }
-    public int CompanyId { get; set; }
-    public Company Company { get; set; }
 }

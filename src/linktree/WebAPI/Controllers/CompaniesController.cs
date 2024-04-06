@@ -6,6 +6,7 @@ using Application.Features.Companies.Queries.GetList;
 using NArchitecture.Core.Application.Requests;
 using NArchitecture.Core.Application.Responses;
 using Microsoft.AspNetCore.Mvc;
+using Application.Features.Companies.Commands.UpdateCompanyImage;
 
 namespace WebAPI.Controllers;
 
@@ -28,17 +29,8 @@ public class CompaniesController : BaseController
     }
 
     [HttpPut]
-    [Consumes("multipart/form-data")]
-    public async Task<IActionResult> Update([FromForm] int id, [FromForm] string name, [FromForm] string description,
-        IFormFile image)
+    public async Task<IActionResult> Update(UpdateCompanyCommand command)
     {
-        UpdateCompanyCommand command = new()
-        {
-            Id = id,
-            Name = name,
-            Description = description,
-            ImageUrl = image
-        };
         UpdatedCompanyResponse response = await Mediator.Send(command);
 
         return Ok(response);
@@ -64,6 +56,19 @@ public class CompaniesController : BaseController
     {
         GetListCompanyQuery getListCompanyQuery = new() { PageRequest = pageRequest };
         GetListResponse<GetListCompanyListItemDto> response = await Mediator.Send(getListCompanyQuery);
+        return Ok(response);
+    }
+    
+    [HttpPut("UpdateCompanyImage")]
+    [Consumes("multipart/form-data")]
+    public async Task<IActionResult> UpdateCompanyImage([FromForm] int id, IFormFile file)
+    {
+        UpdateCompanyImageCommand updateCompanyImageCommand = new()
+        {
+            Id = id,
+            Image = file
+        };
+        UpdateCompanyImageResponse response = await Mediator.Send(updateCompanyImageCommand);
         return Ok(response);
     }
 }

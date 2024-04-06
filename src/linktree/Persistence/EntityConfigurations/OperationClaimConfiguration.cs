@@ -142,6 +142,8 @@ public class OperationClaimConfiguration : IEntityTypeConfiguration<OperationCla
         );
         #endregion
         
+        featureOperationClaims.Add(new() { Id = ++lastId, Name = CompaniesOperationClaims.UpdateCompanyImage });
+        featureOperationClaims.Add(new() { Id = ++lastId, Name = AppsOperationClaims.UpdateImageApp });
         return featureOperationClaims;
     }
 #pragma warning restore S1854 // Unused assignments should be removed

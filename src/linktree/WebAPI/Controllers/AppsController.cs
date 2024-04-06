@@ -7,6 +7,7 @@ using MediatR;
 using NArchitecture.Core.Application.Requests;
 using NArchitecture.Core.Application.Responses;
 using Microsoft.AspNetCore.Mvc;
+using Application.Features.Apps.Commands.UpdateImageApp;
 
 namespace WebAPI.Controllers;
 
@@ -73,6 +74,13 @@ public class AppsController : BaseController
     {
         GetListAppQuery getListAppQuery = new() { PageRequest = pageRequest };
         GetListResponse<GetListAppListItemDto> response = await Mediator.Send(getListAppQuery);
+        return Ok(response);
+    }
+    
+    [HttpPut("UpdateImageApp")]
+    public async Task<IActionResult> UpdateImageApp([FromBody] UpdateImageAppCommand updateImageAppCommand)
+    {
+        UpdateImageAppResponse response = await Mediator.Send(updateImageAppCommand);
         return Ok(response);
     }
 }

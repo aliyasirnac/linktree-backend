@@ -8,6 +8,4 @@ public class CreatedCompanyResponse : IResponse
     public string Name { get; set; }
     public string Description { get; set; }
     public string ImageUrl { get; set; }
-    public string PlayStoreUrl { get; set; }
-    public string AppStoreUrl { get; set; }
 }

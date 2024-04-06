@@ -11,5 +11,4 @@ public class GetListAppListItemDto : IDto
     public string PlayStoreUrl { get; set; }
     public string AppStoreUrl { get; set; }
     public int CompanyId { get; set; }
-    public Company Company { get; set; }
 }

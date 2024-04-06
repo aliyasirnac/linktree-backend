@@ -17,10 +17,8 @@ namespace Application.Features.Companies.Commands.Update;
 public class UpdateCompanyCommand : IRequest<UpdatedCompanyResponse>, ISecuredRequest, ICacheRemoverRequest, ILoggableRequest, ITransactionalRequest
 {
     public int Id { get; set; }
-    public string Name { get; set; }
-    public string Description { get; set; }
-    public IFormFile ImageUrl { get; set; }
-    
+    public string? Name { get; set; }
+    public string? Description { get; set; }
     public string[] Roles => [Admin, Write, CompaniesOperationClaims.Update];
 
     public bool BypassCache { get; }
@@ -49,9 +47,6 @@ public class UpdateCompanyCommand : IRequest<UpdatedCompanyResponse>, ISecuredRe
             await _companyBusinessRules.CompanyShouldExistWhenSelected(company);
             company = _mapper.Map(request, company);
             
-            if (company?.ImageUrl != null) await _imageService.UpdateAsync(request.ImageUrl, company.ImageUrl);
-            await _companyRepository.UpdateAsync(company!);
-
             UpdatedCompanyResponse response = _mapper.Map<UpdatedCompanyResponse>(company);
             return response;
         }
