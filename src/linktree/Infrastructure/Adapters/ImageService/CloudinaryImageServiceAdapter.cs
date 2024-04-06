@@ -14,7 +14,7 @@ public class CloudinaryImageServiceAdapter : ImageServiceBase
     {
         Account account = new Account
         {
-            Cloud ="djxb0iwmr",
+            Cloud = "djxb0iwmr",
             ApiKey = "418276912942882",
             ApiSecret = "yuaW68Q2CJ5gMB5ATf4nampWvVU",
         };

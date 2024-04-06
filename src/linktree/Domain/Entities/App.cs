@@ -2,7 +2,7 @@ using NArchitecture.Core.Persistence.Repositories;
 
 namespace Domain.Entities;
 
-public class App:Entity<int>
+public class App : Entity<int>
 {
     public string Name { get; set; }
     public string ImageUrl { get; set; }

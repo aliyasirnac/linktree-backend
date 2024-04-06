@@ -7,7 +7,6 @@ namespace Persistence.Repositories;
 
 public class AppRepository : EfRepositoryBase<App, int, BaseDbContext>, IAppRepository
 {
-    public AppRepository(BaseDbContext context) : base(context)
-    {
-    }
+    public AppRepository(BaseDbContext context)
+        : base(context) { }
 }

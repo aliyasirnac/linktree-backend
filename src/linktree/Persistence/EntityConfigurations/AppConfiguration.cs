@@ -19,9 +19,9 @@ public class AppConfiguration : IEntityTypeConfiguration<App>
         builder.Property(a => a.CreatedDate).HasColumnName("CreatedDate").IsRequired();
         builder.Property(a => a.UpdatedDate).HasColumnName("UpdatedDate");
         builder.Property(a => a.DeletedDate).HasColumnName("DeletedDate");
-    
+
         builder.HasOne(a => a.Company);
-        
+
         builder.HasQueryFilter(a => !a.DeletedDate.HasValue);
     }
 }

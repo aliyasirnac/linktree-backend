@@ -7,7 +7,6 @@ namespace Persistence.Repositories;
 
 public class CompanyRepository : EfRepositoryBase<Company, int, BaseDbContext>, ICompanyRepository
 {
-    public CompanyRepository(BaseDbContext context) : base(context)
-    {
-    }
+    public CompanyRepository(BaseDbContext context)
+        : base(context) { }
 }

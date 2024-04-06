@@ -1,4 +1,7 @@
+using Application.Features.Apps.Constants;
+using Application.Features.Apps.Constants;
 using Application.Features.Auth.Constants;
+using Application.Features.Companies.Constants;
 using Application.Features.OperationClaims.Constants;
 using Application.Features.UserOperationClaims.Constants;
 using Application.Features.Users.Constants;
@@ -6,9 +9,6 @@ using Domain.Entities;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using NArchitecture.Core.Security.Constants;
-using Application.Features.Companies.Constants;
-using Application.Features.Apps.Constants;
-using Application.Features.Apps.Constants;
 
 namespace Persistence.EntityConfigurations;
 
@@ -100,7 +100,7 @@ public class OperationClaimConfiguration : IEntityTypeConfiguration<OperationCla
         );
         #endregion
 
-        
+
         #region Companies
         featureOperationClaims.AddRange(
             [
@@ -113,8 +113,8 @@ public class OperationClaimConfiguration : IEntityTypeConfiguration<OperationCla
             ]
         );
         #endregion
-        
-        
+
+
         #region Apps
         featureOperationClaims.AddRange(
             [
@@ -127,8 +127,8 @@ public class OperationClaimConfiguration : IEntityTypeConfiguration<OperationCla
             ]
         );
         #endregion
-        
-        
+
+
         #region Apps
         featureOperationClaims.AddRange(
             [
@@ -141,7 +141,7 @@ public class OperationClaimConfiguration : IEntityTypeConfiguration<OperationCla
             ]
         );
         #endregion
-        
+
         featureOperationClaims.Add(new() { Id = ++lastId, Name = CompaniesOperationClaims.UpdateCompanyImage });
         featureOperationClaims.Add(new() { Id = ++lastId, Name = AppsOperationClaims.UpdateImageApp });
         return featureOperationClaims;

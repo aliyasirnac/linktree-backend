@@ -1,13 +1,13 @@
 using Application.Features.Apps.Commands.Create;
 using Application.Features.Apps.Commands.Delete;
 using Application.Features.Apps.Commands.Update;
+using Application.Features.Apps.Commands.UpdateImageApp;
 using Application.Features.Apps.Queries.GetById;
 using Application.Features.Apps.Queries.GetList;
 using MediatR;
+using Microsoft.AspNetCore.Mvc;
 using NArchitecture.Core.Application.Requests;
 using NArchitecture.Core.Application.Responses;
-using Microsoft.AspNetCore.Mvc;
-using Application.Features.Apps.Commands.UpdateImageApp;
 
 namespace WebAPI.Controllers;
 
@@ -17,18 +17,23 @@ public class AppsController : BaseController
 {
     [HttpPost]
     [Consumes("multipart/form-data")]
-    public async Task<IActionResult> Add([FromForm] string name,
-        [FromForm] int companyId, [FromForm] string playStoreUrl, [FromForm] string appStoreUrl,
-        [FromForm] IFormFile file)
+    public async Task<IActionResult> Add(
+        [FromForm] string name,
+        [FromForm] int companyId,
+        [FromForm] string playStoreUrl,
+        [FromForm] string appStoreUrl,
+        [FromForm] IFormFile file
+    )
     {
-        CreateAppCommand createAppCommand = new()
-        {
-            Name = name,
-            ImageUrl = file,
-            CompanyId = companyId,
-            PlayStoreUrl = playStoreUrl,
-            AppStoreUrl = appStoreUrl
-        };
+        CreateAppCommand createAppCommand =
+            new()
+            {
+                Name = name,
+                ImageUrl = file,
+                CompanyId = companyId,
+                PlayStoreUrl = playStoreUrl,
+                AppStoreUrl = appStoreUrl
+            };
         CreatedAppResponse response = await Mediator.Send(createAppCommand);
 
         return Created(uri: "", response);
@@ -36,19 +41,25 @@ public class AppsController : BaseController
 
     [HttpPut]
     [Consumes("multipart/form-data")]
-    public async Task<IActionResult> Update([FromForm] int id,[FromForm] string name,
-        [FromForm] int companyId, [FromForm] string playStoreUrl, [FromForm] string appStoreUrl,
-        [FromForm] IFormFile file)
+    public async Task<IActionResult> Update(
+        [FromForm] int id,
+        [FromForm] string name,
+        [FromForm] int companyId,
+        [FromForm] string playStoreUrl,
+        [FromForm] string appStoreUrl,
+        [FromForm] IFormFile file
+    )
     {
-        UpdateAppCommand updateAppCommand = new()
-        {
-            Id = id,
-            Name = name,
-            ImageUrl = file,
-            PlayStoreUrl = playStoreUrl,
-            AppStoreUrl = appStoreUrl,
-            CompanyId = companyId
-        };
+        UpdateAppCommand updateAppCommand =
+            new()
+            {
+                Id = id,
+                Name = name,
+                ImageUrl = file,
+                PlayStoreUrl = playStoreUrl,
+                AppStoreUrl = appStoreUrl,
+                CompanyId = companyId
+            };
         UpdatedAppResponse response = await Mediator.Send(updateAppCommand);
 
         return Ok(response);
@@ -76,7 +87,7 @@ public class AppsController : BaseController
         GetListResponse<GetListAppListItemDto> response = await Mediator.Send(getListAppQuery);
         return Ok(response);
     }
-    
+
     [HttpPut("UpdateImageApp")]
     public async Task<IActionResult> UpdateImageApp([FromBody] UpdateImageAppCommand updateImageAppCommand)
     {

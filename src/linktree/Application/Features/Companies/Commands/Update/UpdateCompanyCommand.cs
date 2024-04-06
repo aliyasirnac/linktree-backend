@@ -4,17 +4,22 @@ using Application.Services.ImageService;
 using Application.Services.Repositories;
 using AutoMapper;
 using Domain.Entities;
+using MediatR;
+using Microsoft.AspNetCore.Http;
 using NArchitecture.Core.Application.Pipelines.Authorization;
 using NArchitecture.Core.Application.Pipelines.Caching;
 using NArchitecture.Core.Application.Pipelines.Logging;
 using NArchitecture.Core.Application.Pipelines.Transaction;
-using MediatR;
-using Microsoft.AspNetCore.Http;
 using static Application.Features.Companies.Constants.CompaniesOperationClaims;
 
 namespace Application.Features.Companies.Commands.Update;
 
-public class UpdateCompanyCommand : IRequest<UpdatedCompanyResponse>, ISecuredRequest, ICacheRemoverRequest, ILoggableRequest, ITransactionalRequest
+public class UpdateCompanyCommand
+    : IRequest<UpdatedCompanyResponse>,
+        ISecuredRequest,
+        ICacheRemoverRequest,
+        ILoggableRequest,
+        ITransactionalRequest
 {
     public int Id { get; set; }
     public string? Name { get; set; }
@@ -31,9 +36,13 @@ public class UpdateCompanyCommand : IRequest<UpdatedCompanyResponse>, ISecuredRe
         private readonly ICompanyRepository _companyRepository;
         private readonly CompanyBusinessRules _companyBusinessRules;
         private readonly ImageServiceBase _imageService;
-        
-        public UpdateCompanyCommandHandler(IMapper mapper, ICompanyRepository companyRepository,
-                                         CompanyBusinessRules companyBusinessRules,ImageServiceBase imageService)
+
+        public UpdateCompanyCommandHandler(
+            IMapper mapper,
+            ICompanyRepository companyRepository,
+            CompanyBusinessRules companyBusinessRules,
+            ImageServiceBase imageService
+        )
         {
             _mapper = mapper;
             _companyRepository = companyRepository;
@@ -43,10 +52,13 @@ public class UpdateCompanyCommand : IRequest<UpdatedCompanyResponse>, ISecuredRe
 
         public async Task<UpdatedCompanyResponse> Handle(UpdateCompanyCommand request, CancellationToken cancellationToken)
         {
-            Company? company = await _companyRepository.GetAsync(predicate: c => c.Id == request.Id, cancellationToken: cancellationToken);
+            Company? company = await _companyRepository.GetAsync(
+                predicate: c => c.Id == request.Id,
+                cancellationToken: cancellationToken
+            );
             await _companyBusinessRules.CompanyShouldExistWhenSelected(company);
             company = _mapper.Map(request, company);
-            
+
             UpdatedCompanyResponse response = _mapper.Map<UpdatedCompanyResponse>(company);
             return response;
         }

@@ -4,16 +4,21 @@ using Application.Features.Apps.Rules;
 using Application.Services.Repositories;
 using AutoMapper;
 using Domain.Entities;
+using MediatR;
 using NArchitecture.Core.Application.Pipelines.Authorization;
 using NArchitecture.Core.Application.Pipelines.Caching;
 using NArchitecture.Core.Application.Pipelines.Logging;
 using NArchitecture.Core.Application.Pipelines.Transaction;
-using MediatR;
 using static Application.Features.Apps.Constants.AppsOperationClaims;
 
 namespace Application.Features.Apps.Commands.Delete;
 
-public class DeleteAppCommand : IRequest<DeletedAppResponse>, ISecuredRequest, ICacheRemoverRequest, ILoggableRequest, ITransactionalRequest
+public class DeleteAppCommand
+    : IRequest<DeletedAppResponse>,
+        ISecuredRequest,
+        ICacheRemoverRequest,
+        ILoggableRequest,
+        ITransactionalRequest
 {
     public int Id { get; set; }
 
@@ -29,8 +34,7 @@ public class DeleteAppCommand : IRequest<DeletedAppResponse>, ISecuredRequest, I
         private readonly IAppRepository _appRepository;
         private readonly AppBusinessRules _appBusinessRules;
 
-        public DeleteAppCommandHandler(IMapper mapper, IAppRepository appRepository,
-                                         AppBusinessRules appBusinessRules)
+        public DeleteAppCommandHandler(IMapper mapper, IAppRepository appRepository, AppBusinessRules appBusinessRules)
         {
             _mapper = mapper;
             _appRepository = appRepository;

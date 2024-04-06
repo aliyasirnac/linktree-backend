@@ -3,8 +3,8 @@ using Application.Features.Apps.Rules;
 using Application.Services.Repositories;
 using AutoMapper;
 using Domain.Entities;
-using NArchitecture.Core.Application.Pipelines.Authorization;
 using MediatR;
+using NArchitecture.Core.Application.Pipelines.Authorization;
 using static Application.Features.Apps.Constants.AppsOperationClaims;
 
 namespace Application.Features.Apps.Queries.GetById;
